@@ -12,9 +12,13 @@ javaSource in Compile := baseDirectory.value / "foo"
 resolvers ++=  Seq("jcenter" at "http://jcenter.bintray.com",
   "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases")
 
+val monkeyVersion = "3.1.0-stable"
+
 libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.7.2",
-  "org.jmonkeyengine" % "jme3-core" % "3.1.0-stable",
+  "org.jmonkeyengine" % "jme3-core" % monkeyVersion,
+  "org.jmonkeyengine" % "jme3-desktop" % monkeyVersion,
+  "org.jmonkeyengine" % "jme3-jogl" % monkeyVersion,
   "ch.qos.logback" % "logback-classic" % "1.2.3"
 
 //  "net.sourceforge.jtds" % "jtds" % "1.3.1",
