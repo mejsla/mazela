@@ -202,6 +202,7 @@ public class GrizzlyNetworkServer extends AbstractService implements NetworkServ
             grizzlyBuffer.putInt(MessageUtilities.getMagicMarker());
             grizzlyBuffer.put(data);
             grizzlyBuffer.flip();
+            data.flip();
             final OutgoingMessage message
                     = new OutgoingMessage(connection, grizzlyBuffer);
             if (!this.outgoingMessageQueue.offer(message)) {

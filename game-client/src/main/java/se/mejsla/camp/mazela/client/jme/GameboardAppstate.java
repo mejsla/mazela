@@ -27,7 +27,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Sphere;
 import java.util.ArrayList;
@@ -69,7 +68,7 @@ public class GameboardAppstate extends AbstractAppState {
     }
 
     private void addHorizontalEdge(final String name, final float y) {
-        Geometry geom = new Geometry(name, new Box(10, 1, 1));
+        Geometry geom = new Geometry(name, new Box(6, 1, 1));
         final Material mat = new Material(
                 assetManager,
                 "Common/MatDefs/Light/Lighting.j3md"
