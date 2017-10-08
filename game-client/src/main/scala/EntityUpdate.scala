@@ -1,3 +1,3 @@
 import java.util.UUID
 
-case class EntityUpdate(entityID: UUID, x: Float, y: Float)
+case class EntityUpdate(val entityID: UUID, x: Float, y: Float)

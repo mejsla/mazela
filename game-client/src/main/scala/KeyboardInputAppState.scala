@@ -9,7 +9,8 @@ import com.jme3.input.controls.{AnalogListener, InputListener}
 import com.jme3.input.controls.KeyTrigger
 import com.typesafe.scalalogging.LazyLogging
 import se.mejsla.camp.mazela.network.client.NetworkClient
-import se.mejsla.camp.mazela.network.common.protos.MazelaProtocol
+import se.mejsla.camp.mazela.network.common.protos.mazela_protocol.{ClientInput, Envelope}
+import se.mejsla.camp.mazela.network.common.protos.mazela_protocol.Envelope.MessageType
 import se.mejsla.camp.mazela.network.common.{NotConnectedException, OutgoingQueueFullException}
 
 class KeyboardInputAppState(val inputManager: InputManager,
@@ -17,10 +18,10 @@ class KeyboardInputAppState(val inputManager: InputManager,
   extends AbstractAppState
     with LazyLogging {
 
-  var up = new AtomicBoolean(false)
-  var down = new AtomicBoolean(false)
-  var left = new AtomicBoolean(false)
-  var right = new AtomicBoolean(false)
+  var upp = new AtomicBoolean(false)
+  var ner = new AtomicBoolean(false)
+  var vänster = new AtomicBoolean(false)
+  var höger = new AtomicBoolean(false)
   var needsUpdate = new AtomicBoolean(false)
 
 
@@ -43,16 +44,16 @@ class KeyboardInputAppState(val inputManager: InputManager,
     logger.debug("Analog input: {}, {}, {}", name, value, tpf)
     name match {
       case "Left" =>
-        left.set(true)
+        vänster.set(true)
         needsUpdate.set(true)
       case "Right" =>
-        right.set(true)
+        höger.set(true)
         needsUpdate.set(true)
       case "Up" =>
-        up.set(true)
+        upp.set(true)
         needsUpdate.set(true)
       case "Down" =>
-        down.set(true)
+        ner.set(true)
         needsUpdate.set(true)
       case "Quit" =>
         println("lol")
@@ -63,15 +64,10 @@ class KeyboardInputAppState(val inputManager: InputManager,
   override def update(tpf: Float): Unit = {
     if (needsUpdate.get) {
       val message = ByteBuffer.wrap(
-        MazelaProtocol.Envelope.newBuilder
-          .setClientInput(
-            MazelaProtocol.ClientInput.newBuilder
-              .setDown(this.down.get)
-              .setUp(this.up.get)
-              .setLeft(this.left.get)
-              .setRight(this.right.get))
-          .setMessageType(MazelaProtocol.Envelope.MessageType.ClientInput)
-          .build.toByteArray)
+       Envelope(messageType = MessageType.ClientInput)
+         .withClientInput(ClientInput(down=ner.get, up=upp.get,
+           left=vänster.get, right=höger.get)
+       ).toByteArray)
       try {
         networkClient.sendMessage(message)
         needsUpdate.set(false)

@@ -22,5 +22,6 @@ libraryDependencies ++= Seq(
   "org.jmonkeyengine" % "jme3-desktop" % monkeyVersion,
   "org.jmonkeyengine" % "jme3-jogl" % monkeyVersion,
   "ch.qos.logback" % "logback-classic" % "1.2.3",
-  "se.mejsla.camp.mazela" % "mazela-network-client"  % "1.0-SNAPSHOT"
+  "se.mejsla.camp.mazela" % "mazela-network-client"  % "1.0-SNAPSHOT",
+  "default" % "scala-network_2.12" % "0.1-SNAPSHOT"
 )

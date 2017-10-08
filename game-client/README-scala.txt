@@ -1,0 +1,1 @@
+First go to parent project (top level dir), "mvn install", to get the java classes needed as jar files. Then scala-network "sbt publish" to get the protobuf classes. Start the server, then "sbt run" here.
